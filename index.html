@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>N.E.L.C. STUDIO — Digital Business Card</title>
+  <meta name="description" content="N.E.L.C. STUDIO — Brand & Visual Design Consultancy. Strategy, Creativity, Results.">
+  <meta name="theme-color" content="#020617">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="N.E.L.C. STUDIO — Digital Business Card">
+  <meta property="og:description" content="Brand & Visual Design Consultancy. “We believe that identity is the soul of every brand.”">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="N.E.L.C. STUDIO — Digital Business Card">
+  <meta name="twitter:description" content="Brand & Visual Design Consultancy. “We believe that identity is the soul of every brand.”">
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=600">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23020617'/><text x='50%' y='58%' font-family='sans-serif' font-weight='900' font-size='11' fill='%2360a5fa' text-anchor='middle' dominant-baseline='middle'>NELC</text></svg>">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- QRCode.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          animation: {
+            'blob': 'blob 7s infinite',
+            'float': 'float 3s ease-in-out infinite',
+            'pulse-subtle': 'pulseSubtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          },
+          keyframes: {
+            blob: {
+              '0%': { transform: 'translate(0px, 0px) scale(1)' },
+              '33%': { transform: 'translate(30px, -40px) scale(1.1)' },
+              '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px, 0px) scale(1)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            pulseSubtle: {
+              '0%, 100%': { opacity: '1' },
+              '50%': { opacity: '0.6' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom scrollbar & glassmorphism accents */
+    body {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+    .dark .glass-card {
+      background: rgba(17, 24, 39, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-pill {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .action-btn:active {
+      transform: scale(0.96);
+    }
+    /* Smooth transitions */
+    * {
+      transition-property: background-color, border-color, color, fill, stroke, transform;
+      transition-duration: 150ms;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-800 antialiased font-sans min-h-screen flex items-center justify-center p-0 sm:p-4 selection:bg-indigo-500 selection:text-white">
+
+  <!-- Desktop Backdrop Preview Frame -->
+  <div class="fixed inset-0 pointer-events-none overflow-hidden z-0 hidden sm:block">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-blob"></div>
+    <div class="absolute top-1/2 -right-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-blob" style="animation-delay: 2s;"></div>
+    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-blob" style="animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Mobile Device Shell Wrapper -->
+  <main class="w-full sm:max-w-[420px] min-h-screen sm:min-h-[850px] sm:max-h-[92vh] sm:rounded-[44px] bg-slate-50 dark:bg-slate-900 shadow-2xl relative z-10 flex flex-col overflow-hidden sm:border-[8px] sm:border-slate-800 sm:ring-1 sm:ring-white/20">
+
+    <!-- Top Status Bar & App Controls -->
+    <header class="relative w-full z-20 pt-4 px-6 pb-2 flex items-center justify-between text-white">
+      <!-- Edit Mode Toggle -->
+      <button id="editToggleBtn" onclick="toggleEditModal()" class="glass-pill px-3 py-1.5 rounded-full text-xs font-medium tracking-wide flex items-center gap-1.5 shadow-sm hover:bg-white/20 active:scale-95 transition-all text-white" title="Edit Card Details">
+        <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
+        <span>Customize</span>
+      </button>
+
+      <!-- Right Controls: Theme + QR Code -->
+      <div class="flex items-center gap-2">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="glass-pill w-8 h-8 rounded-full flex items-center justify-center shadow-sm hover:bg-white/20 active:scale-95 transition-all text-white" aria-label="Toggle Theme">
+          <i id="themeIcon" data-lucide="moon" class="w-4 h-4"></i>
+        </button>
+        <button onclick="toggleQRModal()" class="glass-pill w-8 h-8 rounded-full flex items-center justify-center shadow-sm hover:bg-white/20 active:scale-95 transition-all text-white" aria-label="View QR Code">
+          <i data-lucide="qr-code" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Scrollable Screen Content -->
+    <div class="flex-1 overflow-y-auto no-scrollbar pb-24">
+      
+      <!-- Dynamic Hero Header Banner -->
+      <div class="relative -mt-14 pt-20 pb-12 px-6 bg-gradient-to-br from-slate-950 via-zinc-900 to-blue-950 rounded-b-[40px] shadow-2xl text-white text-center overflow-hidden border-b border-white/10">
+        <!-- Abstract brand glow circles -->
+        <div class="absolute -right-10 -top-10 w-44 h-44 bg-blue-600/25 rounded-full blur-3xl"></div>
+        <div class="absolute -left-10 bottom-0 w-40 h-40 bg-indigo-500/15 rounded-full blur-2xl"></div>
+        
+        <!-- Studio Monogram / Brand Icon -->
+        <div class="relative w-24 h-24 mx-auto mb-4">
+          <div class="w-full h-full rounded-3xl bg-gradient-to-br from-zinc-800 to-black p-[2px] shadow-2xl ring-1 ring-white/20 flex items-center justify-center">
+            <div class="w-full h-full bg-slate-950 rounded-[22px] flex flex-col items-center justify-center p-2 relative overflow-hidden">
+              <span class="text-2xl font-black tracking-tighter font-display text-white">N.E.L.C.</span>
+              <span class="text-[9px] tracking-[0.25em] uppercase font-semibold text-blue-400">STUDIO</span>
+              <!-- Subtle glow element -->
+              <div class="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-sky-400"></div>
+            </div>
+          </div>
+          <!-- Verified studio badge -->
+          <div class="absolute -bottom-1 -right-1 w-7 h-7 bg-blue-600 border-2 border-slate-950 rounded-full flex items-center justify-center text-white shadow-md">
+            <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+          </div>
+        </div>
+
+        <!-- Identity Details from Brand Board -->
+        <h1 id="cardName" class="text-2xl font-extrabold font-display tracking-tight text-white mb-0.5">N.E.L.C. STUDIO</h1>
+        <p id="cardTitle" class="text-blue-400 text-xs font-semibold tracking-widest uppercase">Brand & Visual Design Consultancy</p>
+
+        <!-- Studio Tagline Quote from Board -->
+        <div class="mt-4 px-3 py-2.5 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-md">
+          <p class="text-xs sm:text-sm font-medium text-slate-100 italic leading-snug">
+            “We Believe that <span class="text-blue-400 font-semibold underline decoration-blue-500/50">identity</span> is the soul of every brand.”
+          </p>
+        </div>
+      </div>
+
+      <!-- Main Action Buttons Row -->
+      <div class="px-6 -mt-6 flex gap-3 relative z-10">
+        <!-- Save to Contacts (vCard) -->
+        <button onclick="downloadVCard()" class="flex-1 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium text-xs sm:text-sm py-3.5 px-4 rounded-2xl shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2 active:scale-95 transition-all">
+          <i data-lucide="user-plus" class="w-4 h-4"></i>
+          <span>Save Studio Contact</span>
+        </button>
+
+        <!-- Share Button -->
+        <button onclick="shareCard()" class="glass-card text-slate-800 dark:text-white font-medium text-xs sm:text-sm py-3.5 px-4 rounded-2xl shadow-md flex items-center justify-center gap-2 active:scale-95 transition-all">
+          <i data-lucide="share-2" class="w-4 h-4 text-blue-500"></i>
+          <span>Share</span>
+        </button>
+      </div>
+
+      <!-- Quick Connect Action Grid with authentic logos -->
+      <div class="px-6 mt-6">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 px-1">Connect with Studio</h2>
+        <div class="grid grid-cols-4 gap-3 text-center">
+          
+          <!-- 1. Call (Telephone Handset Logo) -->
+          <a id="btnPhone" href="tel:+243893493800" class="action-btn flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-blue-400 group transition-all">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-500 text-white flex items-center justify-center mb-1.5 shadow-md shadow-blue-500/25 group-hover:scale-110 transition-transform">
+              <!-- Classic Telephone Phone Handset Logo -->
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Call</span>
+          </a>
+
+          <!-- 2. Inquire (Google Forms Enquiry Form) -->
+          <a id="btnEmail" href="https://docs.google.com/forms/d/e/1FAIpQLSe1ZjyB_gp5u95ogRwyU2pDt0qIeU6ET2LQZs5FMW1c73tpQg/viewform" target="_blank" rel="noopener noreferrer" class="action-btn flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-indigo-400 group transition-all">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 text-white flex items-center justify-center mb-1.5 shadow-md shadow-indigo-500/25 group-hover:scale-110 transition-transform">
+              <!-- Envelope / Inbox Inquire Logo -->
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Inquire</span>
+          </a>
+
+          <!-- 3. WhatsApp (Official WhatsApp Logo) -->
+          <a id="btnWhatsapp" href="https://wa.me/243893493800" target="_blank" rel="noopener noreferrer" class="action-btn flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-emerald-400 group transition-all">
+            <div class="w-11 h-11 rounded-2xl bg-[#25D366] text-white flex items-center justify-center mb-1.5 shadow-md shadow-emerald-500/25 group-hover:scale-110 transition-transform">
+              <!-- Official WhatsApp Logo -->
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0012.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.212 8.212 0 012.41 5.82c0 4.54-3.7 8.24-8.24 8.24-1.45 0-2.87-.38-4.12-1.1l-.3-.17-3.12.82.83-3.04-.19-.3a8.17 8.17 0 01-1.25-4.45c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.53c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.02-1.25-.75-.67-1.26-1.5-1.4-1.75-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1 0 1.24.9 2.44 1.03 2.61.13.17 1.78 2.71 4.3 3.8.6.26 1.07.41 1.44.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+              </svg>
+            </div>
+            <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">WhatsApp</span>
+          </a>
+
+          <!-- 4. Website (Globe / Web Browser Logo) -->
+          <a id="btnWebsite" href="https://share.google/fTZhCf3RsWxAsifHG" target="_blank" rel="noopener noreferrer" class="action-btn flex flex-col items-center justify-center p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-slate-400 group transition-all">
+            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-slate-900 to-zinc-700 text-white flex items-center justify-center mb-1.5 shadow-md shadow-zinc-800/25 group-hover:scale-110 transition-transform">
+              <!-- World Wide Web Globe Logo -->
+              <svg class="w-5 h-5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+            </div>
+            <span class="text-[11px] font-semibold text-slate-700 dark:text-slate-200">Website</span>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- Studio Philosophy (From Board) -->
+      <div class="px-6 mt-6">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 px-1">Our Philosophy</h2>
+        <div class="grid grid-cols-3 gap-2.5">
+          
+          <!-- 01 Strategy -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <span class="text-[11px] font-black text-blue-600 dark:text-blue-400 font-mono">01</span>
+            <div class="mt-2">
+              <h3 class="text-xs font-bold text-slate-800 dark:text-white">Strategy</h3>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Ensuring brand reaches full potential.</p>
+            </div>
+          </div>
+
+          <!-- 02 Creativity -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <span class="text-[11px] font-black text-blue-600 dark:text-blue-400 font-mono">02</span>
+            <div class="mt-2">
+              <h3 class="text-xs font-bold text-slate-800 dark:text-white">Creativity</h3>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Blending art with purpose & distinct visuals.</p>
+            </div>
+          </div>
+
+          <!-- 03 Results -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+            <span class="text-[11px] font-black text-blue-600 dark:text-blue-400 font-mono">03</span>
+            <div class="mt-2">
+              <h3 class="text-xs font-bold text-slate-800 dark:text-white">Results</h3>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Measured by impact on your growth.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Studio Capabilities & Pillars (From Brand Board Top-Right) -->
+      <div class="px-6 mt-6">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 px-1">Design Pillars</h2>
+        <div class="grid grid-cols-3 gap-2.5">
+          <!-- Product Design -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center">
+            <div class="w-10 h-10 mx-auto rounded-full bg-rose-100 dark:bg-rose-950/60 flex items-center justify-center text-rose-500 mb-2">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <p class="text-[11px] font-bold text-slate-800 dark:text-slate-200 leading-tight">Product Design</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">Concept to life</p>
+          </div>
+
+          <!-- UI / Visual Design -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center">
+            <div class="w-10 h-10 mx-auto rounded-full bg-red-100 dark:bg-red-950/60 flex items-center justify-center text-red-500 mb-2">
+              <i data-lucide="layout" class="w-5 h-5"></i>
+            </div>
+            <p class="text-[11px] font-bold text-slate-800 dark:text-slate-200 leading-tight">UI & Visual</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">Interactive code</p>
+          </div>
+
+          <!-- Art Direction -->
+          <div class="p-3 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 shadow-sm text-center">
+            <div class="w-10 h-10 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-950/60 flex items-center justify-center text-emerald-600 mb-2">
+              <i data-lucide="compass" class="w-5 h-5"></i>
+            </div>
+            <p class="text-[11px] font-bold text-slate-800 dark:text-slate-200 leading-tight">Art Direction</p>
+            <p class="text-[9px] text-slate-400 mt-0.5">Unique voice</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Portfolio & Services Grid (From Brand Board Center & Bottom) -->
+      <div class="px-6 mt-6">
+        <div class="flex items-center justify-between mb-3 px-1">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Our Services & Work</h2>
+          <span class="text-[10px] text-blue-500 font-semibold">8 Capabilities</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <!-- 1. Website Design -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-amber-200 to-pink-200 dark:from-amber-900/40 dark:to-pink-900/40 flex items-center justify-center p-3 relative">
+              <i data-lucide="monitor" class="w-8 h-8 text-amber-600 dark:text-amber-300"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">Website Design</p>
+              <p class="text-[10px] text-slate-400">UI / Visual Design</p>
+            </div>
+          </div>
+
+          <!-- 2. Logo & Identity -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-sky-200 to-blue-200 dark:from-sky-900/40 dark:to-blue-900/40 flex items-center justify-center p-3">
+              <i data-lucide="pen-tool" class="w-8 h-8 text-blue-600 dark:text-blue-300"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">Logo & Branding</p>
+              <p class="text-[10px] text-slate-400">Logos that stand apart</p>
+            </div>
+          </div>
+
+          <!-- 3. Poster & Print -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-yellow-200 to-orange-200 dark:from-yellow-900/40 dark:to-orange-900/40 flex items-center justify-center p-3">
+              <i data-lucide="image" class="w-8 h-8 text-orange-600 dark:text-orange-300"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">Poster & Creative</p>
+              <p class="text-[10px] text-slate-400">Design & Art Direction</p>
+            </div>
+          </div>
+
+          <!-- 4. Brochure & Editorial -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-rose-200 to-purple-200 dark:from-rose-900/40 dark:to-purple-900/40 flex items-center justify-center p-3">
+              <i data-lucide="book-open" class="w-8 h-8 text-purple-600 dark:text-purple-300"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">Brochure & Editorial</p>
+              <p class="text-[10px] text-slate-400">Magazine / Print</p>
+            </div>
+          </div>
+
+          <!-- 5. Packaging -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-red-500 to-orange-500 flex items-center justify-center p-3 text-white">
+              <i data-lucide="package" class="w-8 h-8"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">Packaging Design</p>
+              <p class="text-[10px] text-slate-400">Art Direction</p>
+            </div>
+          </div>
+
+          <!-- 6. 3D Modelling & Interior -->
+          <div class="rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-800 overflow-hidden shadow-sm">
+            <div class="h-24 bg-gradient-to-tr from-stone-700 to-zinc-900 flex items-center justify-center p-3 text-white">
+              <i data-lucide="box" class="w-8 h-8 text-blue-400"></i>
+            </div>
+            <div class="p-2.5">
+              <p class="text-xs font-bold text-slate-800 dark:text-slate-100">3D & Interior</p>
+              <p class="text-[10px] text-slate-400">Modelling & Space</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Card Flip Preview Section -->
+      <div class="px-6 mt-6 mb-2">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500 mb-3 px-1">Physical Card Look (Tap to Flip)</h2>
+        <div class="perspective-1000 cursor-pointer" onclick="flipPhysicalCard()">
+          <div id="physicalCardInner" class="relative w-full h-44 rounded-2xl shadow-xl transition-transform duration-700 [transform-style:preserve-3d]">
+            <!-- Front of Physical Card -->
+            <div class="absolute inset-0 w-full h-full rounded-2xl p-5 bg-black text-white flex flex-col justify-between [backface-visibility:hidden] border border-white/20 shadow-2xl">
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-xl font-black font-display tracking-tight text-white">N.E.L.C.</h3>
+                  <p class="text-[10px] tracking-[0.2em] font-semibold text-blue-400">STUDIO</p>
+                </div>
+                <!-- NFC Contactless Symbol -->
+                <i data-lucide="nfc" class="w-6 h-6 text-slate-400"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-300 font-light italic leading-tight">Identity is the soul of every brand</p>
+                <div class="h-0.5 w-12 bg-blue-500 mt-2"></div>
+              </div>
+            </div>
+
+            <!-- Back of Physical Card -->
+            <div class="absolute inset-0 w-full h-full rounded-2xl p-5 bg-zinc-950 text-white flex items-center justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] border border-white/20">
+              <div class="space-y-1.5 max-w-[65%]">
+                <p class="text-[10px] text-blue-400 tracking-wider uppercase font-semibold">Brand & Identity Consultancy</p>
+                <p id="cardBackPhone" class="text-xs font-mono text-slate-200">+243 893 493 800</p>
+                <p id="cardBackEmail" class="text-xs font-mono text-blue-300 truncate">Enquiry Form</p>
+                <p id="cardBackSite" class="text-xs font-mono text-slate-400 truncate">share.google/fTZhCf3RsWxAsifHG</p>
+              </div>
+              <div class="w-20 h-20 bg-white p-1 rounded-xl shadow-md flex items-center justify-center" id="cardBackQr">
+                <!-- Mini QR will render here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer class="mt-8 text-center px-6">
+        <p class="text-[11px] text-slate-400 dark:text-slate-500 font-medium flex items-center justify-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-500"></i> N.E.L.C. Studio • NFC Digital Card
+        </p>
+      </footer>
+    </div>
+
+    <!-- Floating Sticky Bottom CTA for Mobile -->
+    <div class="absolute bottom-0 inset-x-0 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-t border-slate-200/60 dark:border-slate-800 flex items-center gap-3 z-30">
+      <button onclick="downloadVCard()" class="flex-1 py-3 px-4 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white rounded-xl font-medium text-xs flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all">
+        <i data-lucide="download" class="w-4 h-4"></i>
+        <span>Save to Phone Contacts</span>
+      </button>
+      <button onclick="copyDetail('all')" class="p-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-95 transition-all" title="Copy Card Link">
+        <i data-lucide="link" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Modal: QR Code Share -->
+  <div id="qrModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="glass-card bg-white dark:bg-slate-900 w-full max-w-xs rounded-3xl p-6 text-center shadow-2xl scale-95 transition-transform duration-300" id="qrModalBox">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-display font-bold text-slate-800 dark:text-white text-base">Scan Digital Card</h3>
+        <button onclick="toggleQRModal()" class="w-7 h-7 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-inner inline-block my-2" id="qrCodeContainer">
+        <!-- QR Canvas will inject here -->
+      </div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 font-normal">
+        Point phone camera at this QR code to view and save contact instantly.
+      </p>
+      <button onclick="copyCardUrl()" class="mt-4 w-full py-2.5 px-3 bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors">
+        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+        <span id="copyUrlLabel">Copy Card Link</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal: Live Card Customizer / Business Card Input Form -->
+  <div id="editModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white dark:bg-slate-900 w-full sm:max-w-md max-h-[85vh] rounded-t-[32px] sm:rounded-3xl p-6 shadow-2xl overflow-y-auto scale-95 transition-transform duration-300" id="editModalBox">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200 dark:border-slate-800 mb-4">
+        <div>
+          <h3 class="font-display font-bold text-slate-900 dark:text-white text-lg">Edit Your Business Card</h3>
+          <p class="text-xs text-slate-500">Fill in your information to personalize your card</p>
+        </div>
+        <button onclick="toggleEditModal()" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 hover:text-slate-800 dark:hover:text-white">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <form id="cardEditForm" onsubmit="saveCardData(event)" class="space-y-3.5 text-left text-xs">
+        <div>
+          <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
+          <input type="text" id="inputName" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Job Title</label>
+            <input type="text" id="inputTitle" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Company</label>
+            <input type="text" id="inputCompany" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Bio / Tagline</label>
+          <textarea id="inputBio" rows="2" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+            <input type="tel" id="inputPhone" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
+            <input type="email" id="inputEmail" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Website URL</label>
+            <input type="url" id="inputWebsite" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+          <div>
+            <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Location</label>
+            <input type="text" id="inputLocation" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium text-slate-700 dark:text-slate-300 mb-1">Avatar / Photo URL</label>
+          <input type="url" id="inputAvatar" class="w-full px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="pt-3 flex gap-2">
+          <button type="button" onclick="resetToDefaults()" class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium">Reset</button>
+          <button type="submit" class="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-md">Save & Update Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 px-4 py-2 rounded-full text-xs font-medium shadow-xl backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-2">
+    <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 dark:text-emerald-600"></i>
+    <span id="toastMessage">Copied to clipboard</span>
+  </div>
+
+  <script>
+    // Card state object configured with N.E.L.C. STUDIO data from the board
+    const defaultData = {
+      name: "N.E.L.C. STUDIO",
+      title: "Identity & Visual Design Consultancy",
+      company: "N.E.L.C. Studio",
+      bio: "Identity is the soul of every brand. Crafting strategy, creativity, and results across product, visual design, and 3D spaces.",
+      status: "Taking Select Projects",
+      phone: "+243 893 493 800",
+      cleanPhone: "+243893493800",
+      email: "hello@nelcstudio.com",
+      enquiryForm: "https://docs.google.com/forms/d/e/1FAIpQLSe1ZjyB_gp5u95ogRwyU2pDt0qIeU6ET2LQZs5FMW1c73tpQg/viewform",
+      website: "https://share.google/fTZhCf3RsWxAsifHG",
+      location: "Lubumbashi, DRC / Remote",
+      avatar: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=300",
+      linkedin: "https://linkedin.com",
+      github: "https://github.com",
+      instagram: "https://instagram.com"
+    };
+
+    let cardData = { ...defaultData };
+    let isFlipped = false;
+    let qrGenerated = false;
+
+    // Load persisted data
+    function loadSavedData() {
+      try {
+        const saved = localStorage.getItem('nelc_studio_digital_business_card');
+        if (saved) {
+          cardData = { ...defaultData, ...JSON.parse(saved) };
+        }
+      } catch(e) {
+        console.warn('Storage unavailable', e);
+      }
+      renderCardUI();
+    }
+
+    // Render Data into DOM
+    function renderCardUI() {
+      const nameEl = document.getElementById('cardName');
+      if (nameEl) nameEl.textContent = cardData.name;
+      const titleEl = document.getElementById('cardTitle');
+      if (titleEl) titleEl.textContent = cardData.title;
+
+      // Contact buttons
+      const cleanPhone = cardData.phone.replace(/[^0-9+]/g, '');
+      const btnPhone = document.getElementById('btnPhone');
+      if (btnPhone) btnPhone.href = `tel:${cleanPhone}`;
+      
+      const btnEmail = document.getElementById('btnEmail');
+      if (btnEmail) {
+        // Link to the user's Google Forms inquiry link
+        btnEmail.href = cardData.enquiryForm || "https://docs.google.com/forms/d/e/1FAIpQLSe1ZjyB_gp5u95ogRwyU2pDt0qIeU6ET2LQZs5FMW1c73tpQg/viewform";
+      }
+
+      const btnWa = document.getElementById('btnWhatsapp');
+      if (btnWa) {
+        const digitsOnly = cleanPhone.replace('+', '');
+        btnWa.href = `https://wa.me/${digitsOnly}`;
+      }
+
+      const btnWeb = document.getElementById('btnWebsite');
+      if (btnWeb) {
+        btnWeb.href = cardData.website.startsWith('http') ? cardData.website : `https://${cardData.website}`;
+      }
+
+      // Physical card sync
+      const backPhone = document.getElementById('cardBackPhone');
+      if (backPhone) backPhone.textContent = cardData.phone;
+      const backEmail = document.getElementById('cardBackEmail');
+      if (backEmail) backEmail.textContent = "Online Inquiries";
+      const backSite = document.getElementById('cardBackSite');
+      if (backSite) {
+        backSite.textContent = "share.google/...";
+      }
+
+      // Refresh QR Codes
+      generateQRCodes();
+    }
+
+    // Toggle 3D Physical Card Flip
+    function flipPhysicalCard() {
+      isFlipped = !isFlipped;
+      const el = document.getElementById('physicalCardInner');
+      el.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+    }
+
+    // Download vCard (.vcf)
+    function downloadVCard() {
+      const vcardText = [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `FN:${cardData.name}`,
+        `ORG:${cardData.company}`,
+        `TITLE:${cardData.title}`,
+        `TEL;TYPE=CELL,VOICE:${cardData.phone}`,
+        `EMAIL;TYPE=WORK,INTERNET:${cardData.email}`,
+        `URL:${cardData.website}`,
+        `NOTE:Inquiry Form: ${cardData.enquiryForm || 'https://docs.google.com/forms/d/e/1FAIpQLSe1ZjyB_gp5u95ogRwyU2pDt0qIeU6ET2LQZs5FMW1c73tpQg/viewform'}\n${cardData.bio}`,
+        "END:VCARD"
+      ].join("\r\n");
+
+      const blob = new Blob([vcardText], { type: "text/vcard;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `${cardData.name.replace(/\s+/g, "_")}.vcf`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // Trigger Confetti Effect
+      try {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.85 }
+        });
+      } catch(e) {}
+
+      showToast("Contact card saved! Add to your phonebook.");
+    }
+
+    // Share Card via Web Share API or Copy
+    async function shareCard() {
+      const shareUrl = window.location.href;
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: `${cardData.name} - ${cardData.title}`,
+            text: `Connect with ${cardData.name} (${cardData.company})`,
+            url: shareUrl,
+          });
+          return;
+        } catch(err) {
+          // If aborted by user, do nothing
+          if (err.name === 'AbortError') return;
+        }
+      }
+      copyCardUrl();
+    }
+
+    // Copying helper fallback
+    function copyDetail(type) {
+      let val = "";
+      if (type === 'phone') val = cardData.phone;
+      else if (type === 'email') val = cardData.email;
+      else if (type === 'location') val = cardData.location;
+      else if (type === 'all') val = window.location.href;
+
+      fallbackCopy(val);
+      showToast(type === 'all' ? "Card Link Copied!" : `Copied: ${val}`);
+    }
+
+    function copyCardUrl() {
+      fallbackCopy(window.location.href);
+      const label = document.getElementById('copyUrlLabel');
+      if (label) label.textContent = "Link Copied!";
+      showToast("Profile link copied!");
+      setTimeout(() => {
+        if (label) label.textContent = "Copy Card Link";
+      }, 2000);
+    }
+
+    function fallbackCopy(text) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch(err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(textarea);
+    }
+
+    // QR Code Generation
+    function generateQRCodes() {
+      const qrTarget = window.location.href;
+      
+      // Main Modal QR
+      const mainBox = document.getElementById("qrCodeContainer");
+      if (mainBox) {
+        mainBox.innerHTML = "";
+        new QRCode(mainBox, {
+          text: qrTarget,
+          width: 170,
+          height: 170,
+          colorDark: "#1e1b4b",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M
+        });
+      }
+
+      // Small Backside Card QR
+      const backBox = document.getElementById("cardBackQr");
+      if (backBox) {
+        backBox.innerHTML = "";
+        new QRCode(backBox, {
+          text: qrTarget,
+          width: 68,
+          height: 68,
+          colorDark: "#0f172a",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.L
+        });
+      }
+    }
+
+    // QR Modal Controls
+    function toggleQRModal() {
+      const modal = document.getElementById('qrModal');
+      const box = document.getElementById('qrModalBox');
+      const isVisible = !modal.classList.contains('pointer-events-none');
+      if (isVisible) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        box.classList.add('scale-95');
+      } else {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        box.classList.remove('scale-95');
+      }
+    }
+
+    // Edit Customizer Controls
+    function toggleEditModal() {
+      const modal = document.getElementById('editModal');
+      const box = document.getElementById('editModalBox');
+      const isVisible = !modal.classList.contains('pointer-events-none');
+
+      if (!isVisible) {
+        // Prepopulate inputs
+        document.getElementById('inputName').value = cardData.name;
+        document.getElementById('inputTitle').value = cardData.title;
+        document.getElementById('inputCompany').value = cardData.company;
+        document.getElementById('inputBio').value = cardData.bio;
+        document.getElementById('inputPhone').value = cardData.phone;
+        document.getElementById('inputEmail').value = cardData.email;
+        document.getElementById('inputWebsite').value = cardData.website;
+        document.getElementById('inputLocation').value = cardData.location;
+        document.getElementById('inputAvatar').value = cardData.avatar;
+
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        box.classList.remove('scale-95');
+      } else {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        box.classList.add('scale-95');
+      }
+    }
+
+    function saveCardData(e) {
+      e.preventDefault();
+      cardData.name = document.getElementById('inputName').value.trim();
+      cardData.title = document.getElementById('inputTitle').value.trim();
+      cardData.company = document.getElementById('inputCompany').value.trim();
+      cardData.bio = document.getElementById('inputBio').value.trim();
+      cardData.phone = document.getElementById('inputPhone').value.trim();
+      cardData.email = document.getElementById('inputEmail').value.trim();
+      cardData.website = document.getElementById('inputWebsite').value.trim();
+      cardData.location = document.getElementById('inputLocation').value.trim();
+
+      try {
+        localStorage.setItem('nelc_studio_digital_business_card', JSON.stringify(cardData));
+      } catch(err){}
+
+      renderCardUI();
+      toggleEditModal();
+      showToast("N.E.L.C. Studio Card Updated!");
+    }
+
+    function resetToDefaults() {
+      cardData = { ...defaultData };
+      try {
+        localStorage.removeItem('nelc_studio_digital_business_card');
+      } catch(e){}
+      renderCardUI();
+      toggleEditModal();
+      showToast("Reset to N.E.L.C. Studio profile.");
+    }
+
+    // Theme Switcher
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      const icon = document.getElementById('themeIcon');
+      if (isDark) {
+        icon.setAttribute('data-lucide', 'sun');
+      } else {
+        icon.setAttribute('data-lucide', 'moon');
+      }
+      lucide.createIcons();
+    }
+
+    // Toast Alert
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMessage');
+      toastMsg.textContent = msg;
+      toast.classList.remove('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none');
+      }, 2500);
+    }
+
+    // Initialize on window load
+    window.onload = function() {
+      loadSavedData();
+      lucide.createIcons();
+    };
+  </script>
+</body>
+</html>
